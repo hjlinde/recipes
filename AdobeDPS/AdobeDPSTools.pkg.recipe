@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>net.revolvingsq.AdobeDPS</string>
+	<key>Description</key>
+	<string>Downloads the latest Adobe Digital Publishing Suite and repackages it for silent installation. A functional installer that works at the Login Window!</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>AdobeDPS</string>
+		<key>URL</key>
+		<string>http://download.adobe.com/pub/adobe/dpsdesktoptools/mac/28.0.0/AdobeDigitalPublishingPatch-CS6-28.0.0.dmg</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.2.3</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Comment</key>
+			<string>Download latest Adobe DPS disk image</string>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%NAME%.dmg</string>
+				<key>url</key>
+				<string>%URL%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Create a pkg root to extract things from the disk image</string>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/AdobeDPS</string>
+				<key>pkgdirs</key>
+				<dict>
+					<key>Applications</key>
+					<string>01775</string>
+					<key>Applications/Adobe</key>
+					<string>0775</string>
+					<key>Applications/Adobe InDesign CS6</key>
+					<string>0775</string>
+					<key>Library</key>
+					<string>0755</string>
+					<key>Library/Application Support</key>
+					<string>0755</string>
+					<key>Library/Application Support/Adobe</key>
+					<string>0775</string>
+					<key>Library/Application Support/Adobe/CS6ServiceManager</key>
+					<string>0775</string>
+					<key>Library/Application Support/Adobe/CS6ServiceManager/extensions</key>
+					<string>0775</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy Assets disk image</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pathname%/AdobeDigitalPublishingCS6-AutoUpdate/payloads/AdobeDigitalPublishing-mul-110913092504/AdobeDigitalPublishing-mul-110913092504.dmg</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/dps.dmg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy: DPS Plug-In</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pkgroot%/dps.dmg/Assets1/AdobeDigitalPublishingPlugin-mul/Plug-Ins</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/Applications/Adobe InDesign CS6/Plug-Ins</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy: Adobe Content Viewer.app</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pkgroot%/dps.dmg/Assets2/AdobeContentViewer-mul/Install Adobe Content Viewer.app/Contents/Resources/Adobe Content Viewer</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/Applications/Adobe/Adobe Content Viewer.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy: DPS App Builder.app</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pkgroot%/dps.dmg/Assets2/AdobeContentViewer-mul/Install DPS App Builder.app/Contents/Resources/DPS App Builder</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/Applications/DPS App Builder.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy: FolioBuilderBundle</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pkgroot%/dps.dmg/Assets2/AdobeFolioBuilderBundle-mul/FolioBuilderBundle</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/Library/Application Support/Adobe/CS6ServiceManager/extensions/FolioBuilderBundle</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Copy: OverlayCreator</string>
+			<key>Processor</key>
+			<string>Copier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pkgroot%/dps.dmg/Assets2/AdobeOverlayCreator-mul/OverlayCreator</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/Library/Application Support/Adobe/CS6ServiceManager/extensions/OverlayCreator</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Remove dps.dmg</string>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%pkgroot%/dps.dmg</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Get version from DPS Plug-In</string>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%pkgroot%/Applications/Adobe InDesign CS6/Plug-Ins/Graphics/Digital Publishing.InDesignPlugin/Versions/Current/Resources/Info.plist</string>
+				<key>plist_version_key</key>
+				<string>CFBundleShortVersionString</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Make PackageInfo file for our package</string>
+			<key>Processor</key>
+			<string>PkgInfoCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>template_path</key>
+				<string>PackageInfoTemplate</string>
+				<key>infofile</key>
+				<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
+				<key>pkgtype</key>
+				<string>flat</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Finally! Build a real Apple package from Adobe&apos;s Inception-esque blob</string>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgname</key>
+				<string>%NAME%-%version%</string>
+				<key>pkg_request</key>
+				<dict>
+					<key>pkgdir</key>
+					<string>%RECIPE_CACHE_DIR%</string>
+					<key>id</key>
+					<string>com.adobe.pkg.DPSDesktopTools</string>
+					<key>infofile</key>
+					<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
+					<key>resources</key>
+					<string>%RECIPE_DIR%/Resources</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>path</key>
+							<string>Applications</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>admin</string>
+						</dict>
+						<dict>
+							<key>path</key>
+							<string>Library</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>admin</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
