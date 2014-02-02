@@ -155,6 +155,77 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Get version from DPS Plug-In</string>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%pkgroot%/Applications/Adobe InDesign CS6/Plug-Ins/Graphics/Digital Publishing.InDesignPlugin/Versions/Current/Resources/Info.plist</string>
+				<key>plist_version_key</key>
+				<string>CFBundleShortVersionString</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Make PackageInfo file for our package</string>
+			<key>Processor</key>
+			<string>PkgInfoCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>template_path</key>
+				<string>PackageInfoTemplate</string>
+				<key>infofile</key>
+				<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
+				<key>pkgtype</key>
+				<string>flat</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Finally! Build a real Apple package from Adobe&apos;s Inception-esque blob</string>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgname</key>
+				<string>%NAME%-%version%</string>
+				<key>pkg_request</key>
+				<dict>
+					<key>pkgdir</key>
+					<string>%RECIPE_CACHE_DIR%</string>
+					<key>id</key>
+					<string>com.adobe.pkg.DPSDesktopTools</string>
+					<key>infofile</key>
+					<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
+					<key>resources</key>
+					<string>%RECIPE_DIR%/Resources</string>
+					<key>options</key>
+					<string>purge_ds_store</string>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>path</key>
+							<string>Applications</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>admin</string>
+						</dict>
+						<dict>
+							<key>path</key>
+							<string>Library</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>admin</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>
