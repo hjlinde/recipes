@@ -11,7 +11,7 @@
 		<key>NAME</key>
 		<string>AdobeDPS</string>
 		<key>URL</key>
-		<string>http://download.adobe.com/pub/adobe/dpsdesktoptools/mac/28.0.0/AdobeDigitalPublishingPatch-CS6-28.0.0.dmg</string>
+		<string>http://download.adobe.com/pub/adobe/dpsdesktoptools/mac/29.0.0/AdobeDigitalPublishingPatch-CS6-29.0.0.dmg</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.2.3</string>
@@ -72,7 +72,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>source_path</key>
-				<string>%pathname%/AdobeDigitalPublishingCS6-AutoUpdate/payloads/AdobeDigitalPublishing-mul-110913092504/AdobeDigitalPublishing-mul-110913092504.dmg</string>
+				<string>%pathname%/AdobeDigitalPublishingCS6-AutoUpdate/payloads/AdobeDigitalPublishing-mul-021213073500/AdobeDigitalPublishing-mul-021213073500.dmg</string>
 				<key>destination_path</key>
 				<string>%pkgroot%/dps.dmg</string>
 			</dict>
@@ -153,77 +153,6 @@
 				<array>
 					<string>%pkgroot%/dps.dmg</string>
 				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>Comment</key>
-			<string>Get version from DPS Plug-In</string>
-			<key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%pkgroot%/Applications/Adobe InDesign CS6/Plug-Ins/Graphics/Digital Publishing.InDesignPlugin/Versions/Current/Resources/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>CFBundleShortVersionString</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Comment</key>
-			<string>Make PackageInfo file for our package</string>
-			<key>Processor</key>
-			<string>PkgInfoCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>template_path</key>
-				<string>PackageInfoTemplate</string>
-				<key>infofile</key>
-				<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
-				<key>pkgtype</key>
-				<string>flat</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Comment</key>
-			<string>Finally! Build a real Apple package from Adobe&apos;s Inception-esque blob</string>
-			<key>Processor</key>
-			<string>PkgCreator</string>
-			<key>Arguments</key>
-			<dict>
-				<key>pkgname</key>
-				<string>%NAME%-%version%</string>
-				<key>pkg_request</key>
-				<dict>
-					<key>pkgdir</key>
-					<string>%RECIPE_CACHE_DIR%</string>
-					<key>id</key>
-					<string>com.adobe.pkg.DPSDesktopTools</string>
-					<key>infofile</key>
-					<string>%RECIPE_CACHE_DIR%/PackageInfo</string>
-					<key>resources</key>
-					<string>%RECIPE_DIR%/Resources</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
-					<key>chown</key>
-					<array>
-						<dict>
-							<key>path</key>
-							<string>Applications</string>
-							<key>user</key>
-							<string>root</string>
-							<key>group</key>
-							<string>admin</string>
-						</dict>
-						<dict>
-							<key>path</key>
-							<string>Library</string>
-							<key>user</key>
-							<string>root</string>
-							<key>group</key>
-							<string>admin</string>
-						</dict>
-					</array>
-				</dict>
 			</dict>
 		</dict>
 	</array>
