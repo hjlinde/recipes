@@ -72,7 +72,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>source_path</key>
-				<string>%pathname%/AdobeDigitalPublishingCS6-AutoUpdate/payloads/AdobeDigitalPublishing-mul-021213073500/AdobeDigitalPublishing-mul-021213073500.dmg</string>
+				<string>%pathname%/AdobeDigitalPublishingCS6-AutoUpdate/payloads/AdobeDigitalPublishing-mul-*/AdobeDigitalPublishing-mul-*.dmg</string>
 				<key>destination_path</key>
 				<string>%pkgroot%/dps.dmg</string>
 			</dict>
