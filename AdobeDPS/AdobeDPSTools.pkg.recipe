@@ -11,7 +11,7 @@
 		<key>NAME</key>
 		<string>AdobeDPS</string>
 		<key>URL</key>
-		<string>http://download.adobe.com/pub/adobe/dpsdesktoptools/mac/29.0.0/AdobeDigitalPublishingPatch-CS6-29.0.0.dmg</string>
+		<string>http://download.adobe.com/pub/adobe/digitalpublishingsuite/mac/cs6/AdobeDigitalPublishingPatch-CS6-30.0.1.dmg</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.2.3</string>
