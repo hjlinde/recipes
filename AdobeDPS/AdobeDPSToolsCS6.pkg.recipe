@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Identifier</key>
-	<string>net.revolvingsq.AdobeDPS</string>
+	<string>net.revolvingsq.AdobeDPSToolsCS6</string>
 	<key>Description</key>
 	<string>Downloads the latest Adobe Digital Publishing Suite and repackages it for silent installation. A functional installer that works at the Login Window!</string>
 	<key>Input</key>
